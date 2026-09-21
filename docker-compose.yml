@@ -1,0 +1,17 @@
+services:
+  weave-float-audit:
+    build: .
+    image: weave-float-audit:latest
+    container_name: weave-float-audit
+    ports:
+      # 宿主机端口可用 HOST_PORT 覆盖, 例如 HOST_PORT=9000 docker compose up
+      - "${HOST_PORT:-8000}:8000"
+    environment:
+      PORT: "8000"
+      DATABASE_PATH: /data/weave.db
+    volumes:
+      - weave-data:/data
+    restart: unless-stopped
+
+volumes:
+  weave-data:
